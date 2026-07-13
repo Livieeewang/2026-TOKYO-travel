@@ -97,6 +97,40 @@
         /* 連結與提示標籤 */
         .btn-link { display: inline-flex; align-items: center; background: #e2e8f0; color: var(--primary); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; margin-top: 6px; font-weight: 500; }
         .alert-box { background: #fff5f5; border: 1px solid #fed7d7; color: #c53030; padding: 6px 10px; border-radius: 4px; font-size: 0.8rem; margin-top: 6px; font-weight: bold; }
+
+        /* 浮動回到頂部按鈕 (預設隱形且不可點擊) */
+        .top-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 20px;
+            width: 46px;
+            height: 46px;
+            background: #111a2e;
+            color: #ffffff;
+            border: 2px solid #2d3748;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 999;
+            
+            /* 👈 這是你保留的隱形設定：一開始不顯示 */
+            opacity: 0;          
+            pointer-events: none; /* 讓按鈕隱形時無法被誤點 */
+            transition: all 0.4s ease; /* 唯美滑順的淡入動畫 */
+        }
+        
+        /* 🚀 當往下滑動時，JavaScript 會自動幫按鈕貼上 .show 這個標籤，讓它浮現 */
+        .top-btn.show {
+            opacity: 1;          /* 👈 變成完全顯現 */
+            pointer-events: auto; /* 恢復可點擊狀態 */
+        }
+        .top-btn span { font-size: 0.55rem; margin-top: -2px; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
@@ -144,7 +178,7 @@
                     <div class="time">17:15</div>
                     <div class="spot-card">
                         <div class="spot-title">抵達 成田國際機場</div>
-                        <div class="spot-desc">辦理入境、提取行李，並購買市區交通票券。</div>
+                        <div class="spot-desc">辦理入境、提取行李，並購買市區交通票券.</div>
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -238,7 +272,7 @@
                         <div class="spot-title">🚅 新幹線返回：長岡 ➔ 高崎</div>
                         <div class="ticket-info">
                             <strong>列車：</strong>Toki 384<br>
-                            <strong>座位：</strong>座位：自由座 (排隊上車)
+                            <strong>座位：</strong>自由座 (排隊上車)
                         </div>
                     </div>
                 </div>
@@ -355,7 +389,10 @@
         </div>
     </main>
 
+    <button id="topBtn" class="top-btn" onclick="scrollToTop()">▲<span>TOP</span></button>
+
     <script>
+        // 天數分頁切換邏輯
         function switchDay(dayNum) {
             const contents = document.querySelectorAll('.day-content');
             contents.forEach(content => content.classList.remove('active'));
@@ -370,6 +407,28 @@
             const activeTab = tabs[dayNum - 1];
             navTabs.scrollTo({
                 left: activeTab.offsetLeft - (navTabs.clientWidth / 2) + (activeTab.clientWidth / 2),
+                behavior: 'smooth'
+            });
+
+            // 切換分頁時，自動將畫面頂到最上
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        // 🚀 核心控制：偵測滑動高度，決定按鈕要不要加上 .show 出現
+        window.onscroll = function() {
+            const topBtn = document.getElementById("topBtn");
+            // 只要往下滾動超過 100 像素，就讓按鈕「淡入」浮現
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                topBtn.classList.add("show");
+            } else {
+                topBtn.classList.remove("show");
+            }
+        };
+
+        // 平滑滾動回到頂部功能
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
                 behavior: 'smooth'
             });
         }
