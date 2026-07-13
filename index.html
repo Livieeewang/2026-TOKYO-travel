@@ -19,41 +19,56 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans TC', sans-serif; }
         body { background-color: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 60px; }
         
-        /* 黑色煙火主題 Header */
+        /* 黑色煙火主題 Header (隨網頁往上滾動) */
         header { 
             background: #111a2e; 
-            padding: 24px 16px; 
+            padding: 20px 16px; 
             text-align: center; 
             border-bottom: 1px solid #2d3748; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100;
-            position: relative;
-            overflow: hidden;
         }
-        header h1 { font-size: 1.3rem; color: #ffffff; font-weight: 700; letter-spacing: 1px; z-index: 2; position: relative; }
-        header p { font-size: 0.8rem; color: #a0aec0; margin-top: 4px; z-index: 2; position: relative; }
+        header h1 { font-size: 1.3rem; color: #ffffff; font-weight: 700; letter-spacing: 1px; }
         
-        /* CSS 唯美煙火背景裝飾 */
-        header::before, header::after {
+        /* 日期容器：用來精準定位兩旁的煙火 */
+        .date-container {
+            display: inline-block;
+            position: relative;
+            padding: 0 30px;
+            margin-top: 6px;
+        }
+        .date-container p { font-size: 0.8rem; color: #a0aec0; }
+        
+        /* CSS 唯美煙火：精準固定在日期左右兩側 */
+        .date-container::before, .date-container::after {
             content: '🎇';
             position: absolute;
-            font-size: 1.5rem;
+            top: -2px;
+            font-size: 1.1rem;
             opacity: 0.6;
             animation: fireworks 3s infinite ease-in-out;
         }
-        header::before { left: 15%; top: 20%; animation-delay: 0.5s; }
-        header::after { right: 15%; top: 35%; animation-delay: 1.2s; }
+        .date-container::before { left: 0; animation-delay: 0.5s; }
+        .date-container::after { right: 0; animation-delay: 1.2s; }
+        
         @keyframes fireworks {
-            0% { transform: scale(0.5); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: scale(1.2); opacity: 0; }
+            0% { transform: scale(0.6); opacity: 0; }
+            50% { opacity: 0.9; }
+            100% { transform: scale(1.1); opacity: 0; }
         }
 
-        /* 頂部天數切換導覽列 */
-        .nav-tabs { display: flex; overflow-x: auto; background: var(--card-bg); border-bottom: 1px solid var(--border); position: sticky; top: 79px; z-index: 99; scrollbar-width: none; }
+        /* 頂部天數切換導覽列 (吸附在手機最頂端) */
+        .nav-tabs { 
+            display: flex; 
+            overflow-x: auto; 
+            background: var(--card-bg); 
+            border-bottom: 1px solid var(--border); 
+            position: sticky; 
+            top: 0; 
+            z-index: 99; 
+            scrollbar-width: none; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
         .nav-tabs::-webkit-scrollbar { display: none; }
-        .tab-btn { flex: 0 0 60px; padding: 12px 0; text-align: center; border: none; background: none; font-size: 0.9rem; color: var(--text-light); cursor: pointer; border-bottom: 2px solid transparent; }
+        .tab-btn { flex: 0 0 60px; padding: 14px 0; text-align: center; border: none; background: none; font-size: 0.9rem; color: var(--text-light); cursor: pointer; border-bottom: 2px solid transparent; }
         .tab-btn.active { color: #2b6cb0; font-weight: bold; border-bottom: 2px solid #2b6cb0; }
 
         main { max-width: 500px; margin: 0 auto; padding: 16px; }
@@ -85,7 +100,9 @@
 
     <header>
         <h1>東京 | 長岡花火 7日自由行</h1>
-        <p>2026/07/30 ~ 2026/08/05</p>
+        <div class="date-container">
+            <p>2026/07/30 ~ 2026/08/05</p>
+        </div>
     </header>
 
     <div class="nav-tabs">
