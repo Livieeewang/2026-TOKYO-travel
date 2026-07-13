@@ -97,39 +97,6 @@
         /* 連結與提示標籤 */
         .btn-link { display: inline-flex; align-items: center; background: #e2e8f0; color: var(--primary); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; text-decoration: none; margin-top: 6px; font-weight: 500; }
         .alert-box { background: #fff5f5; border: 1px solid #fed7d7; color: #c53030; padding: 6px 10px; border-radius: 4px; font-size: 0.8rem; margin-top: 6px; font-weight: bold; }
-
-        /* 右下角 Top 回到頂部按鈕 */
-        .top-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 44px;
-            height: 44px;
-            background: rgba(17, 26, 46, 0.85);
-            color: #ffffff;
-            border: none;
-            border-radius: 50%;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            z-index: 101;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-        }
-        /* 當滑動到一定距離後，給這個按鈕加上 .show 顯示出來 */
-        .top-btn.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .top-btn span { font-size: 0.6rem; margin-top: -2px; }
     </style>
 </head>
 <body>
@@ -262,4 +229,150 @@
                     <div class="time">17:09 - 22:25</div>
                     <div class="spot-card">
                         <div class="spot-title">🎆 長岡まつり大花火大会 (第一夜)</div>
-                        <div class="alert-box">⚠️ 散場人潮極其恐怖！為了趕上最後的車次，必須提
+                        <div class="alert-box">⚠️ 散場人潮極其恐怖！為了趕上最後的車次，必須提早從煙火會場撤離，並預留排隊進入車站的時間。</div>
+                    </div>
+                </div>
+                <div class="timeline-item important">
+                    <div class="time">22:29 - 23:10</div>
+                    <div class="spot-card">
+                        <div class="spot-title">🚅 新幹線返回：長岡 ➔ 高崎</div>
+                        <div class="ticket-info">
+                            <strong>列車：</strong>Toki 384<br>
+                            <strong>座位：</strong>座位：自由座 (排隊上車)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day5" class="day-content">
+            <div class="hotel-card">
+                <strong>🏨 飯店住宿 (D4~D5):</strong>
+                長岡花火期間飯店 (高崎續住)
+                <a href="https://maps.app.goo.gl/yuimAmUNBYNp8MmL8" target="_blank">📍點我開啟 Google Maps 導航</a>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item important">
+                    <div class="time">10:00 - 10:25</div>
+                    <div class="spot-card">
+                        <div class="spot-title">🚅 新幹線移動：高崎 ➔ 越後湯澤</div>
+                        <div class="ticket-info">
+                            <strong>列車：</strong>Toki 13<br>
+                            <strong>座位：</strong>3 號車廂 14 號 A 席 & 14 號 B 席
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">10:25 - 15:30</div>
+                    <div class="spot-card">
+                        <div class="spot-title">越後湯澤景點遊玩</div>
+                        <div class="spot-desc">清酒博物館、爆彈飯糰巡禮、湯沢高原觀光纜車。</div>
+                    </div>
+                </div>
+                <div class="timeline-item important">
+                    <div class="time">15:57 - 16:19</div>
+                    <div class="spot-card">
+                        <div class="spot-title">🚅 新幹線移動：越後湯澤 ➔ 長岡</div>
+                        <div class="ticket-info">
+                            <strong>列車：</strong>Toki 325<br>
+                            <strong>座位：</strong>6 號車廂 15 號 C 席 & 16 號 C 席
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item important">
+                    <div class="time">16:58 - 22:25</div>
+                    <div class="spot-card">
+                        <div class="spot-title">🎆 長岡まつり大花火大会 (第二夜)</div>
+                        <div class="alert-box">⚠️ 散場人潮依舊擁擠！必須提早離開會場前往車站，避免錯過末班車。</div>
+                    </div>
+                </div>
+                <div class="timeline-item important">
+                    <div class="time">22:29 - 23:10</div>
+                    <div class="spot-card">
+                        <div class="spot-title">🚅 新幹線返回：長岡 ➔ 高崎</div>
+                        <div class="ticket-info">
+                            <strong>列車：</strong>Toki 384<br>
+                            <strong>座位：</strong>自由座 (排隊上車)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day6" class="day-content">
+            <div class="hotel-card">
+                <strong>🏨 飯店住宿 (D6):</strong>
+                東京最後一晚精選飯店
+                <a href="https://maps.app.goo.gl/vrs7syBZioSXccJy8" target="_blank">📍點我開啟 Google Maps 導航</a>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">白天</div>
+                    <div class="spot-card">
+                        <div class="spot-title">群馬高崎 ➔ 返回東京市區</div>
+                        <div class="spot-desc">備註：JR 行李箱放置無限制，可安心上車。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">15:00</div>
+                    <div class="spot-card">
+                        <div class="spot-title">最後一晚飯店 Check-in</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day7" class="day-content">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">11:10</div>
+                    <div class="spot-card">
+                        <div class="spot-title">從上野/市區 出發機場</div>
+                    </div>
+                </div>
+                <div class="timeline-item important">
+                    <div class="time">13:45</div>
+                    <div class="spot-card">
+                        <div class="spot-title">抵達 成田國際機場 (第二航廈)</div>
+                        <div class="alert-box">⚠️ 航班 CX451 於 15:45 起飛，務必提早 2 小時到機場辦理託運、出境並採購伴手禮。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">15:45 - 18:25</div>
+                    <div class="spot-card">
+                        <div class="spot-title">✈️ 國泰航空 CX451</div>
+                        <div class="spot-desc">東京成田 (T2) ➔ 台北桃園 (T1)</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">18:25</div>
+                    <div class="spot-card">
+                        <div class="spot-title">抵達 臺灣桃園國際機場</div>
+                        <div class="spot-desc">回到溫暖的家！</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchDay(dayNum) {
+            const contents = document.querySelectorAll('.day-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById('day' + dayNum).classList.add('active');
+            tabs[dayNum - 1].classList.add('active');
+            
+            const navTabs = document.querySelector('.nav-tabs');
+            const activeTab = tabs[dayNum - 1];
+            navTabs.scrollTo({
+                left: activeTab.offsetLeft - (navTabs.clientWidth / 2) + (activeTab.clientWidth / 2),
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
