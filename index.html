@@ -137,6 +137,52 @@
             opacity: 0;          
             pointer-events: none; /* 讓按鈕隱形時無法被誤點 */
             transition: all 0.4s ease; /* 唯美滑順的淡入動畫 */
+
+            /* 🎨 點擊後彈出的圖片燈箱 (Modal) */
+        .image-modal {
+            display: none;       /* 預設隱形 */
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); /* 半透明黑底 */
+            z-index: 1000;       /* 確保蓋在最上層 */
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        /* 彈窗顯示時的狀態 */
+        .image-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* 彈窗內的圖片 */
+        .modal-content {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-modal.show .modal-content {
+            transform: scale(1); /* 彈出時有輕微放大的唯美動畫 */
+        }
+
+        /* 關閉提示文字 */
+        .modal-close-tip {
+            position: absolute;
+            bottom: 30px;
+            color: #cbd5e0;
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.6);
+            padding: 6px 12px;
+            border-radius: 20px;
+            pointer-events: none;
+        }
         }
         
         /* 🚀 當往下滑動時，JavaScript 會自動幫按鈕貼上 .show 這個標籤，讓它浮現 */
@@ -147,6 +193,9 @@
         .top-btn span { font-size: 0.55rem; margin-top: -2px; letter-spacing: 0.5px; }
     </style>
 </head>
+
+
+    
 <body>
 
     <header>
@@ -317,6 +366,7 @@
                         <div class="spot-title">越後湯澤景點遊玩</div>
                         <div class="spot-desc">． 清酒博物館、爆彈飯糰巡禮</div>
                         <div class="spot-desc">． 湯沢高原觀光纜車 (KKday憑證兌換門票)</div>
+                        <a href="javascript:void(0)" onclick="openImage('KKday_0803.jpg')" class="btn-link">🖼️ 兌換機台照片/位置</a>
                     </div>
                 </div>
                 <div class="timeline-item important">
@@ -490,6 +540,26 @@
                 behavior: 'smooth'
             });
         }
+        // 📸 打開圖片彈窗
+        function openImage(imgUrl) {
+            const modal = document.getElementById('imgModal');
+            const modalImg = document.getElementById('modalImg');
+            
+            modalImg.src = imgUrl; // 帶入點擊的圖片網址
+            modal.classList.add('show'); // 顯示彈窗
+        }
+
+        // ❌ 關閉圖片彈窗
+        function closeImage() {
+            const modal = document.getElementById('imgModal');
+            modal.classList.remove('show'); // 隱藏彈窗
+        }
     </script>
+
+    <div id="imgModal" class="image-modal" onclick="closeImage()">
+        <img id="modalImg" class="modal-content" src="" alt="預覽圖">
+        <div class="modal-close-tip">點擊任意處關閉</div>
+    </div>
+    
 </body>
 </html>
