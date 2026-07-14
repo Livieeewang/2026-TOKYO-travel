@@ -70,7 +70,12 @@
         .tab-btn { flex: 0 0 60px; padding: 14px 0; text-align: center; border: none; background: none; font-size: 0.9rem; color: var(--text-light); cursor: pointer; border-bottom: 2px solid transparent; }
         .tab-btn.active { color: #2b6cb0; font-weight: bold; border-bottom: 2px solid #2b6cb0; }
 
-        main { max-width: 500px; margin: 0 auto; padding: 16px; }
+        main { 
+            max-width: 500px; 
+            margin: 0 auto; 
+            padding: 16px; 
+            min-height: 80vh; /* 👈 新增這行：讓行程區域至少佔有螢幕 80% 的高度，確保隨便滑都有反應 */
+        }    
         .day-content { display: none; }
         .day-content.active { display: block; }
 
