@@ -394,8 +394,17 @@
     <button id="topBtn" class="top-btn" onclick="scrollToTop()">▲<span>TOP</span></button>
 
     <script>
+        // 用一個變數記錄目前在哪一天（預設 Day 1）
+        let currentDay = 1;
+        const totalDays = 7; // 總共有 7 天
+
         // 天數分頁切換邏輯
         function switchDay(dayNum) {
+            // 限制天數範圍在 1 ~ 7 之間
+            if (dayNum < 1 || dayNum > totalDays) return;
+            
+            currentDay = dayNum; // 更新當前天數
+
             const contents = document.querySelectorAll('.day-content');
             contents.forEach(content => content.classList.remove('active'));
             
@@ -416,10 +425,43 @@
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
-        // 🚀 核心控制：偵測滑動高度，決定按鈕要不要加上 .show 出現
+        // 🚀 新增：手勢滑動（Swipe）切換天數功能
+        const mainContainer = document.querySelector('main');
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        // 監聽手指碰觸螢幕瞬間
+        mainContainer.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        // 監聽手指離開螢幕瞬間
+        mainContainer.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        // 判斷滑動方向與執行換頁
+        function handleSwipe() {
+            const swipeDistance = touchEndX - touchStartX;
+            const threshold = 60; // 滑動超過 60 像素才觸發，避免輕微手震誤判
+
+            if (swipeDistance < -threshold) {
+                // 往左滑 (Next Day) ➔ D1 往左滑會變 D2
+                if (currentDay < totalDays) {
+                    switchDay(currentDay + 1);
+                }
+            } else if (swipeDistance > threshold) {
+                // 往右滑 (Previous Day) ➔ D2 往右滑會變 D1
+                if (currentDay > 1) {
+                    switchDay(currentDay - 1);
+                }
+            }
+        }
+
+        // 偵測滑動高度，決定回到頂部按鈕要不要加上 .show 出現
         window.onscroll = function() {
             const topBtn = document.getElementById("topBtn");
-            // 只要往下滾動超過 100 像素，就讓按鈕「淡入」浮現
             if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
                 topBtn.classList.add("show");
             } else {
