@@ -94,6 +94,15 @@
         .spot-card { background: var(--card-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--border); margin-top: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
         .spot-title { font-size: 0.95rem; font-weight: bold; color: var(--primary); }
         .spot-desc { font-size: 0.85rem; color: var(--text-light); margin-top: 4px; }
+        /* 行程卡片內的圖片樣式 */
+        .spot-img {
+            width: 100%;          /* 👈 寬度 100% 撐滿卡片 */
+            max-height: 200px;    /* 👈 限制最高 200px，手機上才不會太佔空間 */
+            object-fit: cover;    /* 👈 自動裁剪，確保圖片不縮放變形 */
+            border-radius: 6px;   /* 👈 圓角設計，跟你的卡片風格一致 */
+            margin-top: 8px;      /* 👈 跟上面的文字保持一點距離 */
+            display: block;
+        }
         
         /* 車票資訊區塊 */
         .ticket-info { background: #f7fafc; border: 1px dashed #cbd5e0; border-radius: 4px; padding: 6px 10px; margin-top: 6px; font-size: 0.8rem; color: #4a5568; }
@@ -209,7 +218,7 @@
                     <div class="spot-card">
                         <div class="spot-title">豪德寺 (招財貓神社)</div>
                         <div class="spot-desc">世田谷區著名景點</div>
-                        <a href="https://maps.app.goo.gl/Tsc3vR8c6rXWicJd6" target="_blank" class="btn-link">📍導航</a>
+                        <a href="https://maps.app.goo.gl/cVnPFAz63RGvoEcR8" target="_blank" class="btn-link">📍導航</a>
                     </div>
                 </div>
                 <div class="timeline-item">
