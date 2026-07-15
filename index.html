@@ -74,7 +74,7 @@
             max-width: 500px; 
             margin: 0 auto; 
             padding: 16px; 
-            min-height: 80vh; /* 👈 新增這行：讓行程區域至少佔有螢幕 80% 的高度，確保隨便滑都有反應 */
+            min-height: 80vh; 
         }    
         .day-content { display: none; }
         .day-content.active { display: block; }
@@ -94,13 +94,14 @@
         .spot-card { background: var(--card-bg); padding: 12px; border-radius: 8px; border: 1px solid var(--border); margin-top: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
         .spot-title { font-size: 0.95rem; font-weight: bold; color: var(--primary); }
         .spot-desc { font-size: 0.85rem; color: var(--text-light); margin-top: 4px; }
+        
         /* 行程卡片內的圖片樣式 */
         .spot-img {
-            width: 100%;          /* 👈 寬度 100% 撐滿卡片 */
-            max-height: 200px;    /* 👈 限制最高 200px，手機上才不會太佔空間 */
-            object-fit: cover;    /* 👈 自動裁剪，確保圖片不縮放變形 */
-            border-radius: 6px;   /* 👈 圓角設計，跟你的卡片風格一致 */
-            margin-top: 8px;      /* 👈 跟上面的文字保持一點距離 */
+            width: 100%;          
+            max-height: 200px;    
+            object-fit: cover;    
+            border-radius: 6px;   
+            margin-top: 8px;      
             display: block;
         }
         
@@ -133,12 +134,20 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             z-index: 999;
             
-            /* 👈 這是你保留的隱形設定：一開始不顯示 */
+            /* 這是你保留的隱形設定：一開始不顯示 */
             opacity: 0;          
             pointer-events: none; /* 讓按鈕隱形時無法被誤點 */
             transition: all 0.4s ease; /* 唯美滑順的淡入動畫 */
+        }
+        
+        /* 🚀 當往下滑動時，JavaScript 會自動幫按鈕貼上 .show 這個標籤，讓它浮現 */
+        .top-btn.show {
+            opacity: 1;          /* 變成完全顯現 */
+            pointer-events: auto; /* 恢復可點擊狀態 */
+        }
+        .top-btn span { font-size: 0.55rem; margin-top: -2px; letter-spacing: 0.5px; }
 
-            /* 🎨 點擊後彈出的圖片燈箱 (Modal) */
+        /* 🎨 點擊後彈出的圖片燈箱 (Modal) 已經從 .top-btn 中解放出來了！ */
         .image-modal {
             display: none;       /* 預設隱形 */
             position: fixed;
@@ -183,19 +192,9 @@
             border-radius: 20px;
             pointer-events: none;
         }
-        }
-        
-        /* 🚀 當往下滑動時，JavaScript 會自動幫按鈕貼上 .show 這個標籤，讓它浮現 */
-        .top-btn.show {
-            opacity: 1;          /* 👈 變成完全顯現 */
-            pointer-events: auto; /* 恢復可點擊狀態 */
-        }
-        .top-btn span { font-size: 0.55rem; margin-top: -2px; letter-spacing: 0.5px; }
     </style>
 </head>
 
-
-    
 <body>
 
     <header>
@@ -457,6 +456,11 @@
 
     <button id="topBtn" class="top-btn" onclick="scrollToTop()">▲<span>TOP</span></button>
 
+    <div id="imgModal" class="image-modal" onclick="closeImage()">
+        <img id="modalImg" class="modal-content" src="" alt="預覽圖">
+        <div class="modal-close-tip">點擊任意處關閉</div>
+    </div>
+
     <script>
         // 用一個變數記錄目前在哪一天（預設 Day 1）
         let currentDay = 1;
@@ -540,6 +544,7 @@
                 behavior: 'smooth'
             });
         }
+        
         // 📸 打開圖片彈窗
         function openImage(imgUrl) {
             const modal = document.getElementById('imgModal');
@@ -555,11 +560,5 @@
             modal.classList.remove('show'); // 隱藏彈窗
         }
     </script>
-
-    <div id="imgModal" class="image-modal" onclick="closeImage()">
-        <img id="modalImg" class="modal-content" src="" alt="預覽圖">
-        <div class="modal-close-tip">點擊任意處關閉</div>
-    </div>
-    
 </body>
 </html>
