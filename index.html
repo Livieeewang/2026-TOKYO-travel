@@ -25,16 +25,7 @@
             touch-action: pan-y; /* 限制僅允許垂直滾動，防止水平滑動帶動整個頁面 */
         }
 
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            line-height: 1.5; 
-            padding-bottom: 60px; 
-            /* 👇 防止手機右側滑動拉開的關鍵設定 */
-            width: 100%;
-            position: relative;
-            overflow-x: hidden;
-            }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 60px; }
         
         /* 黑色煙火主題 Header */
         header { 
@@ -608,21 +599,26 @@
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
-        // 🚀 手勢滑動（Swipe）切換天數功能（修復側邊拉動與上下滾動 Bug）
+        // 🚀 手勢滑動（Swipe）切換天數功能（完整修復：左側/右側邊緣滑動與上下滾動 Bug）
         const mainContainer = document.querySelector('main');
         let touchStartX = 0;
         let touchStartY = 0;
         let touchEndX = 0;
         let touchEndY = 0;
-        let isEdgeSwipe = false;
+        let isEdgeSwipe = false; // 紀錄是否為螢幕邊緣滑動
 
         // 監聽手指碰觸螢幕瞬間
         mainContainer.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
             touchStartY = e.changedTouches[0].screenY;
             
-            // 🛑 避免觸發手機邊緣返回手勢
-            if (touchStartX < 25) {
+            const edgeThreshold = 30; // 邊緣感應區設定為 30px
+            const screenWidth = window.innerWidth; // 取得當前手機螢幕總寬度
+
+            // 🛑 雙向防護：
+            // 1. 左側邊緣 (X < 30px) ➔ 系統「上一頁」手勢範圍
+            // 2. 右側邊緣 (X > 螢幕寬度 - 30px) ➔ 系統「下一頁/側選單」手勢範圍
+            if (touchStartX < edgeThreshold || touchStartX > (screenWidth - edgeThreshold)) {
                 isEdgeSwipe = true;
             } else {
                 isEdgeSwipe = false;
@@ -631,6 +627,7 @@
 
         // 監聽手指離開螢幕瞬間
         mainContainer.addEventListener('touchend', function(e) {
+            // 如果是從兩側邊緣（左側或右側）開始滑動的，直接忽略，不觸發換頁
             if (isEdgeSwipe) return;
 
             touchEndX = e.changedTouches[0].screenX;
