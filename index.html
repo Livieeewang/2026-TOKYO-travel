@@ -25,7 +25,16 @@
             touch-action: pan-y; /* 限制僅允許垂直滾動，防止水平滑動帶動整個頁面 */
         }
 
-        body { background-color: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 60px; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            line-height: 1.5; 
+            padding-bottom: 60px; 
+            /* 👇 防止手機右側滑動拉開的關鍵設定 */
+            width: 100%;
+            position: relative;
+            overflow-x: hidden;
+            }
         
         /* 黑色煙火主題 Header */
         header { 
