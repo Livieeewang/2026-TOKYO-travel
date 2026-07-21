@@ -608,14 +608,14 @@
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
-        // 🚀 手勢滑動（Swipe）切換天數功能（修復誤觸 Bug）
+        // 🚀 手勢滑動（Swipe）切換天數功能（修復直向滾動誤觸 Bug）
         const mainContainer = document.querySelector('main');
         let touchStartX = 0;
         let touchStartY = 0;
         let touchEndX = 0;
         let touchEndY = 0;
 
-        // 監聽手指碰觸螢幕瞬間（同時紀錄 X 與 Y 座標）
+        // 監聽手指碰觸螢幕瞬間
         mainContainer.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
             touchStartY = e.changedTouches[0].screenY;
@@ -628,21 +628,27 @@
             handleSwipe();
         }, { passive: true });
 
-        // 判斷滑動方向與執行換頁
+        // 精準判斷滑動方向與執行換頁
         function handleSwipe() {
             const swipeDistanceX = touchEndX - touchStartX;
             const swipeDistanceY = touchEndY - touchStartY;
-            const threshold = 60; // 水平滑動超過 60 像素才觸發
+            
+            const absX = Math.abs(swipeDistanceX);
+            const absY = Math.abs(swipeDistanceY);
 
-            // 關鍵防誤觸判斷：水平劃動距離必須「大於」垂直滾動距離，才視為左右換頁手勢
-            if (Math.abs(swipeDistanceX) > Math.abs(swipeDistanceY)) {
-                if (swipeDistanceX < -threshold) {
-                    // 往左滑 (Next Day) ➔ D1 往左滑會變 D2
+            // 嚴格雙重防誤觸：
+            // 1. 垂直滾動超過 40px ➔ 視為在逛頁面，絕對不換頁
+            // 2. 水平劃動距離必須達到 80px 以上，且 X 軸位移必須是 Y 軸的 1.8 倍以上 ➔ 確定是意圖明確的左右劃頁
+            if (absY > 40) return; 
+
+            if (absX > 80 && absX > absY * 1.8) {
+                if (swipeDistanceX < 0) {
+                    // 往左滑 (下一天 Next Day)
                     if (currentDay < totalDays) {
                         switchDay(currentDay + 1);
                     }
-                } else if (swipeDistanceX > threshold) {
-                    // 往右滑 (Previous Day) ➔ D2 往右滑會變 D1
+                } else {
+                    // 往右滑 (上一天 Previous Day)
                     if (currentDay > 1) {
                         switchDay(currentDay - 1);
                     }
