@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>東京 | 長岡花火 7日自由行</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -16,6 +16,15 @@
             --border: #e2e8f0;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans TC', sans-serif; }
+        
+        /* 鎖定全域邊界，防止手機邊緣滑動時整個頁面被拉開 */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            position: relative;
+            touch-action: pan-y; /* 限制僅允許垂直滾動，防止水平滑動帶動整個頁面 */
+        }
+
         body { background-color: var(--bg); color: var(--text); line-height: 1.5; padding-bottom: 60px; }
         
         /* 黑色煙火主題 Header */
@@ -65,6 +74,7 @@
             z-index: 99; 
             scrollbar-width: none; 
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            touch-action: pan-x; /* 允許導覽列單獨左右滑動 */
         }
         .nav-tabs::-webkit-scrollbar { display: none; }
         .tab-btn { flex: 0 0 60px; padding: 14px 0; text-align: center; border: none; background: none; font-size: 0.9rem; color: var(--text-light); cursor: pointer; border-bottom: 2px solid transparent; }
@@ -133,41 +143,36 @@
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             z-index: 999;
-            
-            /* 這是你保留的隱形設定：一開始不顯示 */
             opacity: 0;          
-            pointer-events: none; /* 讓按鈕隱形時無法被誤點 */
-            transition: all 0.4s ease; /* 唯美滑順的淡入動畫 */
+            pointer-events: none;
+            transition: all 0.4s ease;
         }
         
-        /* 🚀 當往下滑動時，JavaScript 會自動幫按鈕貼上 .show 這個標籤，讓它浮現 */
         .top-btn.show {
-            opacity: 1;          /* 變成完全顯現 */
-            pointer-events: auto; /* 恢復可點擊狀態 */
+            opacity: 1;          
+            pointer-events: auto;
         }
         .top-btn span { font-size: 0.55rem; margin-top: -2px; letter-spacing: 0.5px; }
 
-        /* 🎨 點擊後彈出的圖片燈箱 (Modal) 已經從 .top-btn 中解放出來了！ */
+        /* 點擊後彈出的圖片燈箱 (Modal) */
         .image-modal {
-            display: none;       /* 預設隱形 */
+            display: none;       
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); /* 半透明黑底 */
-            z-index: 1000;       /* 確保蓋在最上層 */
+            background: rgba(0, 0, 0, 0.85); 
+            z-index: 1000;       
             justify-content: center;
             align-items: center;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
         
-        /* 彈窗顯示時的狀態 */
         .image-modal.show {
             display: flex;
             opacity: 1;
         }
 
-        /* 彈窗內的圖片 */
         .modal-content {
             max-width: 90%;
             max-height: 80%;
@@ -178,10 +183,9 @@
         }
         
         .image-modal.show .modal-content {
-            transform: scale(1); /* 彈出時有輕微放大的唯美動畫 */
+            transform: scale(1); 
         }
 
-        /* 關閉提示文字 */
         .modal-close-tip {
             position: absolute;
             bottom: 30px;
@@ -264,7 +268,6 @@
             </div>
             
             <div class="timeline">
-                <!-- 09:00 豪德寺 -->
                 <div class="timeline-item">
                     <div class="time">09:00</div>
                     <div class="spot-card">
@@ -274,7 +277,6 @@
                     </div>
                 </div>
 
-                <!-- 10:35 世田谷八幡宮 -->
                 <div class="timeline-item">
                     <div class="time">10:35</div>
                     <div class="spot-card">
@@ -284,7 +286,6 @@
                     </div>
                 </div>
 
-                <!-- 13:00 - 18:00 原宿・表參道潮流與知性散策 -->
                 <div class="timeline-item">
                     <div class="time">13:00 - 18:00</div>
                     <div class="spot-card" style="padding: 16px;">
@@ -292,7 +293,6 @@
                             🛍️ 原宿・表參道潮流與知性散策
                         </div>
                         
-                        <!-- 景點 1：明治神宮 -->
                         <div style="background: var(--bg); padding: 12px; border-radius: 6px; margin-bottom: 12px; border-left: 3px solid #ccd5ae;">
                             <div style="font-weight: bold; color: var(--primary); font-size: 0.9rem; margin-bottom: 4px;">① 明治神宮</div>
                             <div class="spot-desc" style="margin-top: 0; line-height: 1.5; font-size: 0.8rem;">
@@ -303,7 +303,6 @@
                             </div>
                         </div>
 
-                        <!-- 景點 2：竹下通 -->
                         <div style="background: var(--bg); padding: 12px; border-radius: 6px; margin-bottom: 12px; border-left: 3px solid #90e0ef;">
                             <div style="font-weight: bold; color: var(--primary); font-size: 0.9rem; margin-bottom: 4px;">② 竹下通</div>
                             <div class="spot-desc" style="margin-top: 0; line-height: 1.5; font-size: 0.8rem;">
@@ -314,7 +313,6 @@
                             </div>
                         </div>
 
-                        <!-- 景點 3：HARAKADO 新地標 -->
                         <div style="background: var(--bg); padding: 12px; border-radius: 6px; margin-bottom: 12px; border-left: 3px solid #faedcd;">
                             <div style="font-weight: bold; color: var(--primary); font-size: 0.9rem; margin-bottom: 4px;">③ 東急Plaza「HARAKADO」</div>
                             <div class="spot-desc" style="margin-top: 0; line-height: 1.5; font-size: 0.8rem;">
@@ -325,7 +323,6 @@
                             </div>
                         </div>
 
-                        <!-- 景點 4：表參道與貓街 -->
                         <div style="background: var(--bg); padding: 12px; border-radius: 6px; border-left: 3px solid #c1d3fe;">
                             <div style="font-weight: bold; color: var(--primary); font-size: 0.9rem; margin-bottom: 4px;">④ 表參道 & 貓街 (Cat Street)</div>
                             <div class="spot-desc" style="margin-top: 0; line-height: 1.5; font-size: 0.8rem;">
@@ -356,7 +353,6 @@
                             ⛩️ 埼玉川越小江戶半日遊
                         </div>
 
-                        <!-- 川越時之鐘 -->
                         <div style="background: var(--bg); padding: 12px; border-radius: 6px; margin-bottom: 12px; border-left: 3px solid #ccd5ae;">
                             <div style="font-weight: bold; color: var(--primary); font-size: 0.9rem; margin-bottom: 4px;">① 川越時之鐘 & 藏造老街</div>
                             <div class="spot-desc" style="margin-top: 0; line-height: 1.5; font-size: 0.8rem;">
@@ -367,7 +363,6 @@
                             </div>
                         </div>
 
-                        <!-- 川越冰川神社 -->
                         <div style="background: var(--bg); padding: 12px; border-radius: 6px; border-left: 3px solid #cdb4db;">
                             <div style="font-weight: bold; color: var(--primary); font-size: 0.9rem; margin-bottom: 4px;">② 川越冰川神社</div>
                             <div class="spot-desc" style="margin-top: 0; line-height: 1.5; font-size: 0.8rem;">
@@ -380,7 +375,6 @@
                     </div>
                 </div>
 
-                <!-- 駒込妙義神社 -->
                 <div class="timeline-item">
                     <div class="time">15:00</div>
                     <div class="spot-card">
@@ -391,7 +385,6 @@
                     </div>
                 </div>
 
-                <!-- 池袋太陽城購物 -->
                 <div class="timeline-item">
                     <div class="time">16:00</div>
                     <div class="spot-card">
@@ -583,10 +576,9 @@
 
         // 天數分頁切換邏輯
         function switchDay(dayNum) {
-            // 限制天數範圍在 1 ~ 7 之間
             if (dayNum < 1 || dayNum > totalDays) return;
             
-            currentDay = dayNum; // 更新當前天數
+            currentDay = dayNum; 
 
             const contents = document.querySelectorAll('.day-content');
             contents.forEach(content => content.classList.remove('active'));
@@ -604,25 +596,34 @@
                 behavior: 'smooth'
             });
 
-            // 切換分頁時，自動將畫面頂到最上
             window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
-        // 🚀 手勢滑動（Swipe）切換天數功能（修復直向滾動誤觸 Bug）
+        // 🚀 手勢滑動（Swipe）切換天數功能（修復側邊拉動與上下滾動 Bug）
         const mainContainer = document.querySelector('main');
         let touchStartX = 0;
         let touchStartY = 0;
         let touchEndX = 0;
         let touchEndY = 0;
+        let isEdgeSwipe = false;
 
         // 監聽手指碰觸螢幕瞬間
         mainContainer.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
             touchStartY = e.changedTouches[0].screenY;
+            
+            // 🛑 避免觸發手機邊緣返回手勢
+            if (touchStartX < 25) {
+                isEdgeSwipe = true;
+            } else {
+                isEdgeSwipe = false;
+            }
         }, { passive: true });
 
         // 監聽手指離開螢幕瞬間
         mainContainer.addEventListener('touchend', function(e) {
+            if (isEdgeSwipe) return;
+
             touchEndX = e.changedTouches[0].screenX;
             touchEndY = e.changedTouches[0].screenY;
             handleSwipe();
@@ -638,7 +639,7 @@
 
             // 嚴格雙重防誤觸：
             // 1. 垂直滾動超過 40px ➔ 視為在逛頁面，絕對不換頁
-            // 2. 水平劃動距離必須達到 80px 以上，且 X 軸位移必須是 Y 軸的 1.8 倍以上 ➔ 確定是意圖明確的左右劃頁
+            // 2. 水平劃動距離必須達到 80px 以上，且 X 軸位移必須是 Y 軸的 1.8 倍以上
             if (absY > 40) return; 
 
             if (absX > 80 && absX > absY * 1.8) {
@@ -679,14 +680,14 @@
             const modal = document.getElementById('imgModal');
             const modalImg = document.getElementById('modalImg');
             
-            modalImg.src = imgUrl; // 帶入點擊的圖片網址
-            modal.classList.add('show'); // 顯示彈窗
+            modalImg.src = imgUrl; 
+            modal.classList.add('show'); 
         }
 
         // ❌ 關閉圖片彈窗
         function closeImage() {
             const modal = document.getElementById('imgModal');
-            modal.classList.remove('show'); // 隱藏彈窗
+            modal.classList.remove('show'); 
         }
     </script>
 </body>
